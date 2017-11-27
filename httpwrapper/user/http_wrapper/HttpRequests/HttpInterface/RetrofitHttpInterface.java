@@ -17,7 +17,11 @@ import httpwrapper.user.http_wrapper.HttpRequests.Callbacks.ResponseExpectant;
 public class RetrofitHttpInterface implements  HttpInterface {
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private String url;
 
+    public RetrofitHttpInterface(String url) {
+        this.url = url;
+    }
 
     @Override
     public void setPostArg(String key, String value) {

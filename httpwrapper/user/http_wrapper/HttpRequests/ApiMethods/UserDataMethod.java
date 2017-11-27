@@ -10,7 +10,7 @@ import httpwrapper.user.http_wrapper.HttpRequests.MappedObjects.UserInfoObject;
  * Created by user on 26.11.2017.
  */
 
-public class UserDataMethod
+public final class UserDataMethod
         extends ApiMethod
         implements ResponseExpectant<JSONObject>
 {
@@ -21,7 +21,7 @@ public class UserDataMethod
 
 
     public void requestByUid(String uid) {
-        HttpInterface http = getHttpClientInstance();
+        HttpInterface http = getHttpClientInstance(getUrlManager().getUserDataByIdUrl());
         http.setGetArg("uid", uid);
         http.setGetArg("al", "921");
         http.getAsynchronousJsonResponse(this);

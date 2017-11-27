@@ -11,7 +11,7 @@ import httpwrapper.user.http_wrapper.HttpRequests.MappedObjects.ProfileInfoObjec
  * Created by user on 26.11.2017.
  */
 
-public class ProfileInfoMethod
+public final class ProfileInfoMethod
         extends ApiMethod
         implements ResponseExpectant<JSONObject>
 {
@@ -24,14 +24,14 @@ public class ProfileInfoMethod
 
 
     public void requestById(Integer id) {
-        HttpInterface http = getHttpClientInstance();
+        HttpInterface http = getHttpClientInstance(getUrlManager().getProfileInfoByIdUrl());
         http.setPostArg("id", id+"");
         http.getAsynchronousJsonResponse(this);
     }
 
 
     public void requestByName(String name) {
-        HttpInterface http = getHttpClientInstance();
+        HttpInterface http = getHttpClientInstance(getUrlManager().getProfileInfoByNameUrl());
         http.setPostArg("name", name);
         http.getAsynchronousJsonResponse(this);
     }

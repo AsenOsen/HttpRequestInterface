@@ -12,6 +12,6 @@ public interface HttpInterface {
 
     void setPostArg(String key, String value);
     void setGetArg(String key, String value);
-    void getAsynchronousJsonResponse(ResponseExpectant<JSONObject> callback);
+    void getAsynchronousResponse(ResponseExpectant<String> callback);
 
 }

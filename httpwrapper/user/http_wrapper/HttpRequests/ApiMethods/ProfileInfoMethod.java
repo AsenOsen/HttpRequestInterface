@@ -1,6 +1,5 @@
 package httpwrapper.user.http_wrapper.HttpRequests.ApiMethods;
 
-import org.json.JSONObject;
 
 import httpwrapper.user.http_wrapper.HttpRequests.Callbacks.ResponseExpectant;
 import httpwrapper.user.http_wrapper.HttpRequests.HttpInterface.HttpInterface;
@@ -13,7 +12,7 @@ import httpwrapper.user.http_wrapper.HttpRequests.MappedObjects.ProfileInfoObjec
 
 public final class ProfileInfoMethod
         extends ApiMethod
-        implements ResponseExpectant<JSONObject>
+        implements ResponseExpectant<String>
 {
 
 
@@ -26,20 +25,21 @@ public final class ProfileInfoMethod
     public void requestById(Integer id) {
         HttpInterface http = getHttpClientInstance(getUrlManager().getProfileInfoByIdUrl());
         http.setPostArg("id", id+"");
-        http.getAsynchronousJsonResponse(this);
+        http.getAsynchronousResponse(this);
     }
 
 
     public void requestByName(String name) {
         HttpInterface http = getHttpClientInstance(getUrlManager().getProfileInfoByNameUrl());
         http.setPostArg("name", name);
-        http.getAsynchronousJsonResponse(this);
+        http.getAsynchronousResponse(this);
     }
 
 
     @Override
-    public void onResponseReceived(JSONObject data) {
-        callback.onResponseReceived(new ProfileInfoObject());
+    public void onResponseReceived(String data) {
+        ProfileInfoObject object = getMapper().map(data, ProfileInfoObject.class);
+        callback.onResponseReceived(object==null ? new ProfileInfoObject() : object);
     }
 
 

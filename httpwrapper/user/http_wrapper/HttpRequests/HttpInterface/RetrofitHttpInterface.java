@@ -2,7 +2,6 @@ package httpwrapper.user.http_wrapper.HttpRequests.HttpInterface;
 
 import android.os.AsyncTask;
 
-import org.json.JSONObject;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,14 +35,14 @@ public class RetrofitHttpInterface implements  HttpInterface {
 
 
     @Override
-    public void getAsynchronousJsonResponse(final ResponseExpectant<JSONObject> callback) {
+    public void getAsynchronousResponse(final ResponseExpectant<String> callback) {
 
         /* use retrofit functionality to create requestById and get JSON by HTTP */
 
-        new AsyncTask<Void, Void, JSONObject>(){
+        new AsyncTask<Void, Void, String>(){
 
             @Override
-            protected JSONObject doInBackground(Void... voids) {
+            protected String doInBackground(Void... voids) {
 
                 /* do some long-time actions */
 
@@ -53,11 +52,11 @@ public class RetrofitHttpInterface implements  HttpInterface {
                     e.printStackTrace();
                 }
 
-                return new JSONObject();
+                return new String();
             }
 
             @Override
-            protected void onPostExecute(JSONObject aVoid) {
+            protected void onPostExecute(String aVoid) {
                 /* pass a result to callback */
                 callback.onResponseReceived(aVoid);
             }

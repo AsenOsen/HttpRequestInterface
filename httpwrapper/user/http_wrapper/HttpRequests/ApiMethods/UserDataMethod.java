@@ -1,7 +1,5 @@
 package httpwrapper.user.http_wrapper.HttpRequests.ApiMethods;
 
-import org.json.JSONObject;
-
 import httpwrapper.user.http_wrapper.HttpRequests.Callbacks.ResponseExpectant;
 import httpwrapper.user.http_wrapper.HttpRequests.HttpInterface.HttpInterface;
 import httpwrapper.user.http_wrapper.HttpRequests.MappedObjects.UserInfoObject;
@@ -12,7 +10,7 @@ import httpwrapper.user.http_wrapper.HttpRequests.MappedObjects.UserInfoObject;
 
 public final class UserDataMethod
         extends ApiMethod
-        implements ResponseExpectant<JSONObject>
+        implements ResponseExpectant<String>
 {
 
     public UserDataMethod(ResponseExpectant<UserInfoObject> callback) {
@@ -24,13 +22,14 @@ public final class UserDataMethod
         HttpInterface http = getHttpClientInstance(getUrlManager().getUserDataByIdUrl());
         http.setGetArg("uid", uid);
         http.setGetArg("al", "921");
-        http.getAsynchronousJsonResponse(this);
+        http.getAsynchronousResponse(this);
     }
 
 
     @Override
-    public void onResponseReceived(JSONObject data) {
-        callback.onResponseReceived(new UserInfoObject());
+    public void onResponseReceived(String data) {
+        UserInfoObject object = getMapper().map(data, UserInfoObject.class);
+        callback.onResponseReceived(object==null ? new UserInfoObject() : object);
     }
 
 }
